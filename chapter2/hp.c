@@ -9,17 +9,17 @@ int main()
 
     tid = omp_get_thread_num();
     mcpu = omp_get_num_threads();
-    printf("hello from thread &d in %d CPUs\n", tid, mcpu);
+    printf("hello from thread %d in %d CPUs\n", tid, mcpu);
     printf("------before parallel\n");
     printf("\n");
     printf("------during parallel\n");
 
-#pragma omp parallel num_threads(3) private(tid, mcpu)
-{
-    tid = omp_get_thread_num();
-    mcpu = omp_get_num_threads();
-    printf("hello from thread %d in %d CPUs\n", tid, mcpu);
-}
+#pragma omp parallel num_threads(100) private(tid, mcpu)
+    {
+        tid = omp_get_thread_num();
+        mcpu = omp_get_num_threads();
+        printf("hello from thread %d in %d CPUs\n", tid, mcpu);
+    }
     printf("\n");
     printf("------after parallel\n");
     printf("hello from thread %d in %d CPUs\n", tid, mcpu);

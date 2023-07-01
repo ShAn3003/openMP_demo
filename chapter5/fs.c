@@ -14,43 +14,49 @@ int main()
     b = 0.0;
     c = 0.0;
 
-    #pragma omp parallel private(i, j) default(shared)
+#pragma omp parallel private(i, j) default(shared)
     {
         starttime = omp_get_wtime();
-        #pragma omp for reduction(+:a) schedule(static)
-        for(i = 1; i < max; i++){
-            for(j = i; j < max; j++) {
-                a = a + (double)(i+j)/(double)(i*j);
+#pragma omp for reduction(+ : a) schedule(static)
+        for (i = 1; i < max; i++)
+        {
+            for (j = i; j < max; j++)
+            {
+                a = a + (double)(i + j) / (double)(i * j);
             }
         }
         endtime = omp_get_wtime();
         time = (endtime - starttime) * 1000.0;
-        #pragma omp single
-        printf("static schedule time = %f13.5 milleseconds, a = %f\n", time, a);
+#pragma omp single
+        printf("static schedule time = %13.5f milleseconds, a = %f\n", time, a);
 
         starttime = omp_get_wtime();
-        #pragma omp for reduction(+:b) schedule(dynamic)
-        for(i = 1; i < max; i++) {
-            for(j = i; j < max; j++) {
-                b = b + (double)(i+j)/(double)(i*j);
+#pragma omp for reduction(+ : b) schedule(dynamic)
+        for (i = 1; i < max; i++)
+        {
+            for (j = i; j < max; j++)
+            {
+                b = b + (double)(i + j) / (double)(i * j);
             }
         }
         endtime = omp_get_wtime();
         time = (endtime - starttime) * 1000.0;
-        #pragma omp single
-        printf("dynamic schedule time = %f13.5 millesecond, b = %f\n", time, b);
+#pragma omp single
+        printf("dynamic schedule time = %13.5f millesecond, b = %f\n", time, b);
 
         starttime = omp_get_wtime();
-        #pragma omp for reduction(+:c) schedule(guided)
-        for(i = 1; i < max; i++) {
-            for(j = i; j < max; j++) {
-                c = c + (double)(i+j)/(double)(i*j);
+#pragma omp for reduction(+ : c) schedule(guided)
+        for (i = 1; i < max; i++)
+        {
+            for (j = i; j < max; j++)
+            {
+                c = c + (double)(i + j) / (double)(i * j);
             }
         }
         endtime = omp_get_wtime();
         time = (endtime - starttime) * 1000.0;
-        #pragma omp single
-        printf("guided schedule time = %f13.5 millesecond, b = %f\n", time, c);
+#pragma omp single
+        printf("guided schedule time = %13.5f millesecond, b = %f\n", time, c);
     }
     return 0;
 }

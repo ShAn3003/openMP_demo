@@ -4,7 +4,8 @@ int x = 0;
 int y = 0;
 
 #pragma omp threadprivate(x)
-int main ()
+// x被设置为每个线程私有
+int main()
 {
     int tid, a;
 
@@ -17,7 +18,7 @@ int main ()
     printf("a = %d, x = %d, y = %d, id = %d\n", a, x, y, tid);
     printf("\n");
     printf("--- 1st parallel region---\n");
-    #pragma omp parallel private(a, tid)
+#pragma omp parallel private(a, tid)
     {
         tid = omp_get_thread_num();
         printf("a = %d, x = %d, y = %d, id = %d\n", a, x, y, tid);
@@ -38,7 +39,7 @@ int main ()
     printf("\n");
     printf("--- 2nd parallel region---\n");
 
-    #pragma omp parallel private(tid)
+#pragma omp parallel private(tid)
     {
         tid = omp_get_thread_num();
         printf("a = %d, x = %d, y = %d, id = %d\n", a, x, y, tid);

@@ -8,13 +8,14 @@ int main()
     omp_set_num_threads(3);
     printf("nthreads   tid   i   j   c[i][j]\n");
 
-    #pragma omp parallel for private(i, j, tid, nthreads) shared(a, b, c)
-    for(i = 0; i < 3; i++)
+#pragma omp parallel for private(i, j, tid, nthreads) shared(a, b, c)
+    // 所有线程共享a,b,c可以自由对这三个变量进行读取和写入
+    for (i = 0; i < 3; i++)
     {
-        for(j = 0; j < 3; j++)
+        for (j = 0; j < 3; j++)
         {
-            a[i][j] = (i+1) + (j+1);
-            b[i][j] = (i+j+2) * 10;
+            a[i][j] = (i + 1) + (j + 1);
+            b[i][j] = (i + j + 2) * 10;
             c[i][j] = a[i][j] + b[i][j];
             tid = omp_get_thread_num();
             nthreads = omp_get_num_threads();

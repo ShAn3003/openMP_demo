@@ -7,9 +7,9 @@ int main()
     x = 0;
 
     omp_set_num_threads(8);
-    #pragma omp parallel shared(x)
+#pragma omp parallel shared(x)
     {
-        #pragma omp critical(critical_plus)
+#pragma omp critical(critical_plus)
         x = x + 1;
     }
 

@@ -12,13 +12,13 @@ void func1(double x, double y, double z, int m)
     int i, j;
 
     start = omp_get_wtime();
-    for(i = 1; i < m+1; i++)
+    for (i = 1; i < m + 1; i++)
     {
-        for(j = 1; j < m+1; j++)
+        for (j = 1; j < m + 1; j++)
         {
-            x = sin(x+sin(log((double)m)));
-            y = cos(x+y-cos(log((double)i)));
-            z = sin(x+y+z+cos(log(abs(x+y)+j)));
+            x = sin(x + sin(log((double)m)));
+            y = cos(x + y - cos(log((double)i)));
+            z = sin(x + y + z + cos(log(abs(x + y) + j)));
         }
     }
     end = omp_get_wtime();
@@ -26,7 +26,7 @@ void func1(double x, double y, double z, int m)
     fun1_cal = fun1_cal + end - start;
 
     printf("fun 1: x = %lf, y = %lf, z = %lf\n", x, y, z);
-    return ;
+    return;
 }
 
 void func2(double x, double y, double z, int m)
@@ -37,15 +37,15 @@ void func2(double x, double y, double z, int m)
     func1(-x, y, z, m);
 
     start = omp_get_wtime();
-    for(i = 1; i < m+1; i++)
+    for (i = 1; i < m + 1; i++)
     {
-        for(j = 1; j < m+1; j++)
+        for (j = 1; j < m + 1; j++)
         {
-            u = cos(x+sin(cos(log10(m))));
-            v = exp(cos(u+sin(cos((double)m))));
-            x = sin(x+v+sin(log((double)m)));
-            y = cos(x+y-cos(log((double)i)));
-            z = sin(x+y+z+cos(log(abs(x+y)+j)));
+            u = cos(x + sin(cos(log10(m))));
+            v = exp(cos(u + sin(cos((double)m))));
+            x = sin(x + v + sin(log((double)m)));
+            y = cos(x + y - cos(log((double)i)));
+            z = sin(x + y + z + cos(log(abs(x + y) + j)));
         }
     }
 
@@ -54,7 +54,7 @@ void func2(double x, double y, double z, int m)
     fun2_cal = fun2_cal + end - start;
 
     printf("fun 2: x = %lf, y = %lf, z = %lf\n", x, y, z);
-    return ;
+    return;
 }
 
 int main()
@@ -65,13 +65,13 @@ int main()
     start0 = omp_get_wtime();
 
     start = omp_get_wtime();
-    for(i = 1; i < m+1; i++)
+    for (i = 1; i < m + 1; i++)
     {
-        for(j = 1; j < m+1; j++)
+        for (j = 1; j < m + 1; j++)
         {
-            x = sin(x+sin(log((double)m)));
-            y = cos(x+y-cos(log((double)i)));
-            z = sin(x+y+z+cos(log(abs(x+y)+j)));
+            x = sin(x + sin(log((double)m)));
+            y = cos(x + y - cos(log((double)i)));
+            z = sin(x + y + z + cos(log(abs(x + y) + j)));
         }
     }
     end = omp_get_wtime();
@@ -89,8 +89,8 @@ int main()
     printf("--------hot spots analysis result---------\n");
     printf("Total calculatal time = %f seconds\n", tsum);
     printf("loop&func times cal_time(s) cal_time(%)\n");
-    printf("   loop1   %ld   %E   %2f %\n", loop_times, loop_cal, loop_cal/tsum * 100);
-    printf("   func1   %ld   %E   %2f %\n", fun1_times, fun1_cal, fun1_cal/tsum * 100);
-    printf("   func2   %ld   %E   %2f %\n", fun2_times, fun2_cal, fun2_cal/tsum * 100);
+    printf("   loop1   %ld   %E   %2f %\n", loop_times, loop_cal, loop_cal / tsum * 100);
+    printf("   func1   %ld   %E   %2f %\n", fun1_times, fun1_cal, fun1_cal / tsum * 100);
+    printf("   func2   %ld   %E   %2f %\n", fun2_times, fun2_cal, fun2_cal / tsum * 100);
     return 0;
 }

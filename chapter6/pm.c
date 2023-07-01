@@ -6,13 +6,13 @@ int main()
     int nthreads, tid;
     omp_set_num_threads(3);
 
-    #pragma omp parallel private(tid, nthreads)
+#pragma omp parallel private(tid, nthreads)
     {
         tid = omp_get_thread_num();
         nthreads = omp_get_num_threads();
         printf("before master: %d, id = %d\n", nthreads, tid);
 
-        #pragma omp master
+#pragma omp master
         {
             tid = omp_get_thread_num();
             nthreads = omp_get_num_threads();
@@ -24,5 +24,5 @@ int main()
         printf("after master: %d, id = %d\n", nthreads, tid);
     }
 
-    returnzhey 0;
+    return 0;
 }

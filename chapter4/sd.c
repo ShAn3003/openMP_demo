@@ -6,12 +6,12 @@ int main()
     int nthreads_set, nthreads, tid;
 
     nthreads_set = 3;
-    omp_set_dynamic(1);
+    omp_set_dynamic(1); // 虽然设置了动态调整，但是接下来的线程数设定让这个代码无效
     omp_set_num_threads(nthreads_set);
     printf("set_number_threads = %d\n", nthreads_set);
     printf("dynamic region(1 or 0): %d\n\n", omp_get_dynamic());
-    
-    #pragma omp parallel private(tid, nthreads)
+
+#pragma omp parallel private(tid, nthreads)
     {
         nthreads = omp_get_num_threads();
         tid = omp_get_thread_num();
@@ -20,4 +20,3 @@ int main()
     }
     return 0;
 }
-

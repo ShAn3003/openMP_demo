@@ -16,7 +16,8 @@ int main()
     printf("\n");
     printf("---------after parallel\n");
 
-    #pragma omp parallel private(a, b, tid) shared(c)
+#pragma omp parallel private(a, b, tid) shared(c)
+    // a,b,tid为每个线程私有，c共享主线程，最后一个线程给c什么值，c就变成什么
     {
         int d = -4;
         tid = omp_get_thread_num();
